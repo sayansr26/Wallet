@@ -191,13 +191,49 @@ if (isset($_GET['setup'])) {
         $total = $_POST['total'];
         $balance = $_POST['balance'];
         $new = $balance - $total;
+        $email = "";
+        $subject = "";
+        $body = "Transection successfull amount paid $sentamount & transection id $transection";
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, ban, account, ifsc, bank, transectionid,status) VALUES('$sentamount','$charge','$total', '1',now(),'$username','$ban','$account','$ifsc','$bank','$transection','accepted')";
             $connection->exec($insert);
             try {
                 $update = "UPDATE user_data SET balance = '$new' WHERE username = '$username'";
                 $connection->exec($update);
-                echo "success?type=1&transectionid=$transection&senetamount=$sentamount&charge=$charge&total=$total&status=accepted";
+                $query = "SELECT * FROM user_data WHERE username = :username";
+                $statement = $connection->prepare($query);
+                $statement->execute(
+                    array(
+                        'username' => $username
+                    )
+                );
+                $result = $statement->fetchAll();
+                foreach ($result as $row) {
+                    $email = $row['email'];
+                }
+                require 'vendors/smtp/PHPMailerAutoload.php';
+                $mail = new PHPMailer;
+                // $mail->SMTPDebug = 4;
+                $mail->isSMTP();
+                $mail->Host = 'mail.siaaw.tk';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'info@siaaw.tk';
+                $mail->Password = 'Sayan@159';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+                $mail->IsHTML(true);
+                $mail->setFrom('info@siaaw.tk', 'no-reply');
+                $mail->addAddress($email);
+                $mail->addAddress('info.zestwallet@gmail.com');
+                $mail->Subject = $subject;
+                $mail->Body = $body;
+                if (!$mail->send()) {
+                    echo "error";
+                } else {
+                    $id = $connection->lastInsertId();
+                    echo "success?type=1&transectionid=$transection&senetamount=$sentamount&charge=$charge&total=$total&status=accepted";
+                }
+                // echo "success?type=1&transectionid=$transection&senetamount=$sentamount&charge=$charge&total=$total&status=accepted";
             } catch (PDOException $e) {
                 echo 'Faield : ' . $e->getMessage();
             }
@@ -220,13 +256,49 @@ if (isset($_GET['setup'])) {
         $fee = $amount * $persantage;
         $total = $amount + $fee;
         $avilable = $balance - $total;
+        $email = "";
+        $subject = "";
+        $body = "Transection successfull amount paid $amount & transection id $transection";
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, transectionid, status) VALUES('$amount','$fee','$total','$type',now(),'$username','$tarnsection','$status')";
             $connection->exec($insert);
             try {
                 $update = "UPDATE user_data SET balance = '$avilable' WHERE username = '$username'";
                 $connection->exec($update);
-                echo "success?type=3&transectionid=$tarnsection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
+                $query = "SELECT * FROM user_data WHERE username = :username";
+                $statement = $connection->prepare($query);
+                $statement->execute(
+                    array(
+                        'username' => $username
+                    )
+                );
+                $result = $statement->fetchAll();
+                foreach ($result as $row) {
+                    $email = $row['email'];
+                }
+                require 'vendors/smtp/PHPMailerAutoload.php';
+                $mail = new PHPMailer;
+                // $mail->SMTPDebug = 4;
+                $mail->isSMTP();
+                $mail->Host = 'mail.siaaw.tk';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'info@siaaw.tk';
+                $mail->Password = 'Sayan@159';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+                $mail->IsHTML(true);
+                $mail->setFrom('info@siaaw.tk', 'no-reply');
+                $mail->addAddress($email);
+                $mail->addAddress('info.zestwallet@gmail.com');
+                $mail->Subject = $subject;
+                $mail->Body = $body;
+                if (!$mail->send()) {
+                    echo "error";
+                } else {
+                    $id = $connection->lastInsertId();
+                    echo "success?type=3&transectionid=$tarnsection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
+                }
+                // echo "success?type=3&transectionid=$tarnsection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
             } catch (PDOException $e) {
                 echo 'Faield : ' . $e->getMessage();
             }
@@ -242,6 +314,9 @@ if (isset($_GET['setup'])) {
         $type = '4';
         $charge = 0;
         $total = $amount;
+        $email = "";
+        $subject = "";
+        $body = "Transection successfull amount paid $amount & transection id $transection";
 
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, razorpay, transectionid, status) VALUES('$amount','$charge','$total','$type',now(),'$username','$pay_id','$transection','accepted')";
@@ -250,7 +325,40 @@ if (isset($_GET['setup'])) {
             try {
                 $update = "UPDATE user_data SET balance = '$newbalance' WHERE username = '$username'";
                 $connection->exec($update);
-                echo "success?type=4&transectionid=$transection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
+                $query = "SELECT * FROM user_data WHERE username = :username";
+                $statement = $connection->prepare($query);
+                $statement->execute(
+                    array(
+                        'username' => $username
+                    )
+                );
+                $result = $statement->fetchAll();
+                foreach ($result as $row) {
+                    $email = $row['email'];
+                }
+                require 'vendors/smtp/PHPMailerAutoload.php';
+                $mail = new PHPMailer;
+                // $mail->SMTPDebug = 4;
+                $mail->isSMTP();
+                $mail->Host = 'mail.siaaw.tk';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'info@siaaw.tk';
+                $mail->Password = 'Sayan@159';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+                $mail->IsHTML(true);
+                $mail->setFrom('info@siaaw.tk', 'no-reply');
+                $mail->addAddress($email);
+                $mail->addAddress('info.zestwallet@gmail.com');
+                $mail->Subject = $subject;
+                $mail->Body = $body;
+                if (!$mail->send()) {
+                    echo "error";
+                } else {
+                    $id = $connection->lastInsertId();
+                    echo "success?type=4&transectionid=$transection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
+                }
+                // echo "success?type=4&transectionid=$transection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
             } catch (PDOException $e) {
                 echo 'Faield : ' . $e->getMessage();
             }

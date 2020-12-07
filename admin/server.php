@@ -135,9 +135,9 @@ if (isset($_GET['auth'])) {
                 extract($row);
                 $id = $row['id'];
                 $username = $row['username'];
-                $recived_amount = $row['sent_amount'];
-                $havetoSend = $row['recive_amount'];
-                $reazorpayId = $row['pay_id'];
+                $recived_amount = $row['total'];
+                $havetoSend = $row['amount'];
+                $reazorpayId = $row['razorpay'];
                 $status = $row['status'];
                 $date = $row['date'];
                 $date = strtotime($date);
@@ -161,7 +161,7 @@ if (isset($_GET['auth'])) {
         }
     } elseif ($data == 'transection') {
         $viewId = $_POST['id'];
-        $query = "SELECT * FROM exchnages WHERE id = :id";
+        $query = "SELECT * FROM transection WHERE id = :id";
         $statement = $connection->prepare($query);
         $statement->execute(
             array(
@@ -173,10 +173,11 @@ if (isset($_GET['auth'])) {
             $result = $statement->fetchAll();
             foreach ($result as $row) {
                 $username = $row['username'];
-                $recivedAmount = $row['sent_amount'];
-                $transferAmount = $row['recive_amount'];
-                $transection_id = $row['transection_id'];
-                $razorypaId = $row['pay_id'];
+                $recivedAmount = $row['total'];
+                $transferAmount = $row['amount'];
+                $transection_id = $row['transectionid'];
+                $razorypaId = $row['razorpay'];
+                $type = $row['type'];
                 $bankName = $row['bank'];
                 $account = $row['account'];
                 $ifsc = $row['ifsc'];
@@ -184,6 +185,15 @@ if (isset($_GET['auth'])) {
                 $date = $row['date'];
                 $date = strtotime($date);
                 $date = date('d M Y', $date);
+                if ($type == '1') {
+                    $type = 'Bank Transfer';
+                } elseif ($type == '2') {
+                    $type = 'Bank Transfer';
+                } elseif ($type == '3') {
+                    $type = 'Withdrawl';
+                } elseif ($type == '4') {
+                    $type = 'Add Money';
+                }
 
                 echo "
                         <h5 class='text-center'>Exchnage Details</h5>
@@ -205,6 +215,8 @@ if (isset($_GET['auth'])) {
                             <div class='col-6'><h5>$account</h5></div>
                             <div class='col-6'><h5><strong>IFSC CODE : </strong></h5></div>
                             <div class='col-6'><h5>$ifsc</h5></div>
+                            <div class='col-6'><h5><strong>Transection Type : </strong></h5></div>
+                            <div class='col-6'><h5>$type</h5></div>
                             <div class='col-6'><h5><strong>Date : </strong></h5></div>
                             <div class='col-6'><h5>$date</h5></div>
                             <div class='col-6'><h5><strong>Status : </strong></h5></div>

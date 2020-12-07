@@ -131,7 +131,7 @@ if (isset($_GET['setup'])) {
         $balance = $_POST['balance'];
         $email = "";
         $subject = "";
-        $body = "Transection successfull amount paid $amount & transection id $transection";
+        $body = "Transection successfull amount paid $sentamount & transection id $transection";
 
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, ban, account, ifsc, bank, transectionid, razorpay,status) VALUES('$sentamount','$charge','$total', '1',now(),'$username','$ban','$account','$ifsc','$bank','$transection','$pay_id','accepted')";

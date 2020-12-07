@@ -226,7 +226,7 @@ if (isset($_GET['setup'])) {
             try {
                 $update = "UPDATE user_data SET balance = '$avilable' WHERE username = '$username'";
                 $connection->exec($update);
-                echo "success?type=3&transectionid=$transection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
+                echo "success?type=3&transectionid=$tarnsection&senetamount=$amount&charge=$charge&total=$total&status=accepted";
             } catch (PDOException $e) {
                 echo 'Faield : ' . $e->getMessage();
             }

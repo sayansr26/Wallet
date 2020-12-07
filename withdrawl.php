@@ -120,13 +120,13 @@ $transectionIdProtect = sha1($transectionId);
                                 <hr>
                                 <div class="form-group">
                                     <div class="form_div">
-                                        <input type="number" name="amount" id="amount" class="form_input" placeholder=" " required>
+                                        <input type="number" onchange="valuechange()" name="amount" id="amount" class="form_input" placeholder=" " required>
                                         <label for="amount" id="amount-label" class="form_label">Amount Want To Withdrawl</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form_div">
-                                        <input type="text" value="<?php echo $charge; ?>%" class="form_input" placeholder=" " disabled>
+                                        <input type="text" id="showfee" value="" class="form_input" placeholder=" " disabled>
                                         <label for="charge" id="charge-label" class="form_label">Charge</label>
                                         <input type="hidden" name="charge" id="charge" value="<?php echo $charge; ?>">
                                     </div>
@@ -189,6 +189,17 @@ $transectionIdProtect = sha1($transectionId);
     <script src="vendors/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
     <script src="vendors/fontawesome/js/all.js"></script>
     <script>
+        function valuechange() {
+            var amount = $('#amount').val();
+            var charge = $('#charge').val();
+            var persantage = charge / 100;
+            var totalcharge = amount * persantage;
+
+            // alert(totalcharge);
+
+            $('#showfee').val(totalcharge);
+        }
+
         function withdrawl() {
             var amount = $('#amount').val();
             var bank = $('#bank').val();
@@ -199,7 +210,8 @@ $transectionIdProtect = sha1($transectionId);
             var charge = $('#charge').val();
             var persantage = charge / 100;
             var fee = amount * persantage;
-            var total = amount - fee;
+            var total = parseInt(amount) + parseInt(fee);
+            // alert(total);
             if (amount == '') {
                 alert('Amount field is required !');
             } else if (total > balance) {
@@ -220,9 +232,14 @@ $transectionIdProtect = sha1($transectionId);
                     type: 'post',
                     data: $('#withdraw-form').serialize(),
                     success: function(response) {
-                        alert(response);
+                        if (response.indexOf('success') != -1) {
+                            window.location.href = response;
+                        } else {
+                            alert(response);
+                        }
                     }
                 });
+                // alert('good');
             }
         }
     </script>

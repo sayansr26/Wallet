@@ -1,0 +1,641 @@
+/* team.php extra designs */
+
+.st-cmp-settings-icon {
+    display: none;
+}
+
+.wrapper .container .share {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+    border-radius: 15px;
+    border-bottom: 3px solid #536dfe;
+}
+
+.wrapper .container .share .titile {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .container .share .link {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 80%;
+    display: flex;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.wrapper .container .share .link .label {
+    background: #536dfe;
+    margin-right: 5px;
+    color: #fff;
+    height: 35px;
+    line-height: 35px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    font-weight: 700;
+    padding: 0 10px;
+}
+
+.wrapper .container .share .link span {
+    /* padding: 0 10px; */
+    height: 35px;
+    line-height: 35px;
+}
+
+.wrapper .container .users {
+    margin: 10px 0;
+    padding: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .container .users h3 {
+    color: #808080;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .container .users .man {
+    width: 70%;
+    background: #536dfe36;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px 0;
+    display: flex;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+}
+
+.wrapper .container .users .man:hover {
+    transform: scale(1.1);
+}
+
+.wrapper .container .users .man .info {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* team.php extra designs */
+
+
+/* profile.php extra design */
+
+.wrapper .container .row .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.wrapper .container .row .intro .profile-image {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.wrapper .container .row .intro .profile-image img {
+    display: block;
+    width: 200px;
+    height: 200px;
+}
+
+.wrapper .container .row .intro .profile-image .overlay {
+    position: absolute;
+    transition: all .3s ease;
+    opacity: 0;
+    background: #333;
+    color: #fff;
+}
+
+.wrapper .container .row .intro .profile-image .overlay .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wrapper .container .row .intro .profile-image .overlay .content a {
+    color: white;
+}
+
+.wrapper .container .row .intro .profile-image .overlay .content a:hover {
+    color: #536dfe;
+}
+
+.overlay-up {
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.wrapper .container .row .intro .profile-image:hover .overlay {
+    opacity: 1;
+}
+
+.wrapper .container .row .intro .profile-image:hover .overlay-up {
+    height: 20%;
+}
+
+.wrapper .container .row .intro .change-details {
+    position: fixed;
+    top: 20%;
+    right: 5%;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: #808080;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.wrapper .container .row .intro .change-details:hover {
+    transform: scale(1.1);
+}
+
+.wrapper .container .row .col-12 {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper .container .row .col-12 .title {
+    color: #536dfe;
+    font-weight: 900;
+}
+
+.wrapper .container .row .col-12 .dash {
+    width: 13%;
+    background: #808080;
+    color: #808080;
+    border-radius: 25%;
+    padding: 1px 0;
+}
+
+.tab-pane {
+    padding: 10px;
+    min-height: 10rem;
+}
+
+@media only screen and (max-width: 590px) {
+    .nav-tabs .nav-item {
+        font-size: small;
+    }
+    .tab-content h5,
+    .intro h5 {
+        font-size: medium;
+    }
+}
+
+@media only screen and (max-width: 524px) {
+    .nav-tabs .nav-item {
+        font-size: 10px !important;
+    }
+    .tab-content h5,
+    .intro h5 {
+        font-size: 13px;
+    }
+    .wrapper .container .row .intro .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+    .wrapper .container .row .intro .profile-image img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media only screen and (max-width: 456px) {
+    .nav-tabs .nav-item {
+        font-size: 8px !important;
+    }
+    .tab-content h5,
+    .intro h5 {
+        font-size: 11px;
+    }
+    .wrapper .container .row .intro .profile-image {
+        width: 90px;
+        height: 90px;
+    }
+    .wrapper .container .row .intro .profile-image img {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+
+/* profile.php extra design */
+
+
+/* task.php extra design */
+
+.points-overview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border-radius: 15px;
+    padding: 5px;
+    border-bottom: 3px solid #F0D145;
+}
+
+.points-overview h5 {
+    color: #808080;
+}
+
+.task-header {
+    color: #808080;
+    font-weight: 900;
+}
+
+
+/* #yt-box {
+    display: none;
+    transition: all 1s ease-in-out;
+} */
+
+.btn-custom {
+    background: #f0f0f0;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 5px 15px;
+    border: 1px solid #fff;
+}
+
+.btn-custom:hover {
+    background: transparent;
+}
+
+.link-management {
+    background: #e7dcff;
+    border-radius: 15px !important;
+    border: none;
+    outline: none;
+}
+
+@media only screen and (max-width: 375px) {
+    .points-overview h5 {
+        font-weight: 600;
+        font-size: small;
+    }
+}
+
+
+/* task.php extra design */
+
+
+/* waller.php extra design */
+
+.wrapper .container .row .piechart {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 15px;
+    min-height: 20rem;
+}
+
+.wrapper .container .row .piechart h5 {
+    color: #808080;
+}
+
+.wrapper .container .row .wallet {
+    background: #a673fd;
+    margin: 20px 0;
+    border-radius: 20px;
+    color: #f0f0f0;
+    display: flex;
+    transition: all .5s ease-in-out;
+}
+
+.wrapper .container .row .wallet .part1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #b388ff;
+    padding: 20px;
+    width: 90%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.wrapper .container .row .wallet .part2 {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .container .row .wallet .part2 h6 {
+    transform: rotate(90deg);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .container .row .wallet .part2 h6 span {
+    color: #333;
+}
+
+.wrapper .container .row .wallet:hover {
+    transform: scale(1.1);
+}
+
+.wrapper .container .row .withdraw-request {
+    color: #808080;
+    padding: 10px 0px;
+}
+
+.wrapper .container .row .withdraw-request h5 {
+    color: #808080;
+    font-weight: 900;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .container .row .withdraw-request .btn-primary {
+    background: #536dfe !important;
+}
+
+.wrapper .container .row .withdraw-request .btn-primary:hover {
+    background: #2747fd !important;
+}
+
+.wrapper .container .row .pending-requests {
+    color: #808080;
+}
+
+.wrapper .container .row .pending-requests .p-title {
+    /* border-bottom: 2px solid rgba(0, 0, 0, 0.1); */
+    font-weight: 900;
+}
+
+.wrapper .container .row .pending-requests table thead th {
+    color: #333;
+}
+
+.wrapper .container .row .pending-requests table th {
+    color: #808080;
+}
+
+.wrapper .container .row .buy-coins {
+    color: #808080;
+}
+
+.wrapper .container .row .buy-coins h5 {
+    font-weight: 900;
+}
+
+.wrapper .container .row .buy-coins table thead th {
+    color: #333;
+}
+
+.wrapper .container .row .buy-coins table th {
+    color: #808080;
+}
+
+.bg-custom {
+    background: #ff9a88 !important;
+}
+
+.bg-custom1 {
+    background: #ffc1b6 !important;
+}
+
+.wrapper .container .row .trasfer {
+    color: #808080;
+}
+
+.wrapper .container .row .trasfer h5 {
+    font-weight: 900;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .container .row .trasfer .btn-primary {
+    background: #536dfe !important;
+}
+
+.wrapper .container .row .trasfer .btn-primary:hover {
+    background: #304fff !important;
+}
+
+.custom-height {
+    height: 30% !important;
+}
+
+
+/* waller.php extra design */
+
+
+/* links.php extra desings */
+
+.custom-txt {
+    color: #808080;
+    font-weight: 900;
+}
+
+.table-title {
+    /* text-align: center; */
+    color: #808080;
+    font-weight: 900;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+
+.yt-links {
+    background: #c4302b;
+    color: #fff;
+    padding: 25px 15px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 15px;
+}
+
+.yt-links:hover {
+    background: transparent;
+    color: #c4302b;
+}
+
+.it-links {
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    color: #fff;
+    padding: 25px 15px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 15px;
+}
+
+.it-links:hover {
+    background: transparent;
+    color: #d6249f;
+}
+
+.ft-links {
+    background: #3b5998;
+    color: #fff;
+    padding: 25px 15px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 15px;
+}
+
+.ft-links:hover {
+    background: transparent;
+    color: #3b5998;
+}
+
+.wt-links {
+    background: linear-gradient(#536dfe, #b388ff);
+    color: #fff;
+    padding: 25px 15px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 15px;
+}
+
+.wt-links:hover {
+    background: transparent;
+    color: #536dfe;
+}
+
+.side-menu {
+    height: 30% !important;
+}
+
+
+/* links.php extra desings */
+
+
+/* customize modal */
+
+.modal-content {
+    padding: 1rem 1.2rem;
+}
+
+.modal-content h5 span {
+    font-size: smaller;
+    cursor: pointer;
+}
+
+.modal-content .devider {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.5px;
+    margin-bottom: 10px;
+    width: 75% !important;
+}
+
+.modal-content a {
+    text-decoration: none !important;
+}
+
+
+/* customize modal */
+
+
+/* customize modal */
+
+#verifywait {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+}
+
+#veirfycomplete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+}
+
+#verifywait h5 {
+    color: #536dfe;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+#veirfycomplete h5 {
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.withdraw,
+.convert {
+    border-radius: 15px !important;
+}
+
+.convert {
+    background: #a673fd;
+    color: #f0f0f0;
+}
+
+.table {
+    border-radius: 15px !important;
+}
+
+
+/* buy diamonds part */
+
+.diamonds {
+    padding: 20px;
+    background: #ff9a88;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    margin: 10px 0;
+}
+
+
+/* buy diamonds part */

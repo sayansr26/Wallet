@@ -1,0 +1,115 @@
+// Pulling these images from Unsplash
+// Toshi the dog from https://unsplash.com/@charlesdeluvio - what a funny dog...
+body {
+    height: 100vh;
+}
+
+.bg-login-image {
+    background: url('../assets/welcome.svg');
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-register-image {
+    background: url('../assets/setup.svg');
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-password-image {
+    background: url('https://picsum.photos/1280');
+    background-position: center;
+    background-size: cover;
+}
+
+form.user {
+    .custom-checkbox.small {
+        label {
+            line-height: 1.5rem;
+        }
+    }
+    .form-control-user {
+        font-size: 0.8rem;
+        border-radius: 10rem;
+        padding: 1.5rem 1rem;
+    }
+    .btn-user {
+        font-size: 0.8rem;
+        border-radius: 10rem;
+        padding: 0.75rem 1rem;
+    }
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(45deg, $color-primary, $color-accent);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* custom form */
+
+.form_div {
+    position: relative;
+    height: 48px;
+    margin-bottom: 1rem;
+}
+
+.form_input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: var(--normal-font-size);
+    border: 1px solid $color-accent;
+    border-radius: 3rem;
+    outline: none;
+    padding: 1rem;
+    background: none;
+    z-index: 1;
+}
+
+.form_label {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    padding: 0 .25rem;
+    background: #fff;
+    color: $color-primary;
+    font-size: var(--normal-font-size);
+    transition: .3s;
+}
+
+.form_input:focus+.form_label {
+    top: -.5rem;
+    left: .8rem;
+    color: $color-primary;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.form_input:not(:placeholder-shown).form_input:not(:focus)+.form_label {
+    top: -.5rem;
+    left: .8rem;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.form_input:focus {
+    border: 2px solid $color-accent;
+}
+
+.form_input.invalid {
+    border: 2px solid red;
+}
+
+.form_label.invalid {
+    color: red;
+}
+
+
+/* custom form */

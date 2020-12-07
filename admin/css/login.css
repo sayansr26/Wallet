@@ -1,0 +1,32 @@
+@font-face {
+    font-family: Poppins;
+    src: url('../fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: Megrim;
+    src: url('../fonts/Megrim-Regular.ttf');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+    scroll-behavior: smooth;
+    background: url('../assets/bg-1.jpg');
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+
+.row {
+    min-height: 100vh;
+}
+
+.card {
+    padding: 20px 0;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: #f0f0f07a;
+}

@@ -1,0 +1,322 @@
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@-webkit-keyframes yourAnimation {
+  0.0% {
+  }
+  100% {
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  }
+  49.9% {
+    -webkit-transform: translate(0px, 10px);
+            transform: translate(0px, 10px);
+  }
+}
+@keyframes yourAnimation {
+  0.0% {
+  }
+  100% {
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  }
+  49.9% {
+    -webkit-transform: translate(0px, 10px);
+            transform: translate(0px, 10px);
+  }
+}
+
+.header-container {
+  min-height: 80vh;
+  background: url("../assets/bg-header.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header-container .animated-element {
+  -webkit-animation: yourAnimation 2.5s ease-in-out 0s infinite normal none;
+          animation: yourAnimation 2.5s ease-in-out 0s infinite normal none;
+}
+
+.header-container .navbar-brand {
+  font-family: "Nerko One", cursive;
+  font-size: 1.9rem;
+}
+
+.header-container .btn-custom {
+  background: transparent !important;
+  color: #ff7a7a !important;
+  border: 2px solid #ff7a7a;
+  border-radius: 3rem;
+  padding: 5px 20px !important;
+  font-weight: 700 !important;
+  -webkit-transition: all 0.5s ease-in-out !important;
+  transition: all 0.5s ease-in-out !important;
+}
+
+.header-container .btn-custom:hover {
+  background: #ff7a7a !important;
+  color: white !important;
+}
+
+.header-container .card {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 3rem !important;
+  border-bottom-left-radius: 3rem !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.header-container .active {
+  border-bottom: 2px solid #fff !important;
+}
+
+.header-container .nav-item:hover {
+  border-bottom: 2px solid #fff !important;
+}
+
+.header-container .card-title {
+  color: #ff7a7a;
+  font-weight: 600;
+}
+
+.header-container .card p {
+  font-size: 12px;
+  text-align: start;
+  color: #333;
+}
+
+@media only screen and (max-width: 768px) {
+  .hidden-image {
+    display: none;
+  }
+}
+
+.btn-primary {
+  background: #40bf19 !important;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: #333333;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: inset 0 0 2.5px 2 rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 2.5px 2 rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #fff, #40bf19);
+  border-radius: 15px;
+}
+
+.tracking {
+  margin-top: -3rem !important;
+}
+
+.tracking .text-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.tracking .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border-radius: 50% !important;
+  height: 7rem !important;
+  width: 7rem !important;
+}
+
+.tracking .card h5 {
+  color: #40bf19;
+}
+
+.whatsapp-suppurt {
+  position: fixed;
+  bottom: 5%;
+  right: 2%;
+}
+
+.transection .transection-ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #dddcdc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  line-height: 50px;
+}
+
+.transection .card {
+  border-top-left-radius: 3rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 3rem !important;
+}
+
+@media only screen and (max-width: 375px) {
+  .header-container .w-75 {
+    width: 100% !important;
+  }
+  .header-container .wallet h1 {
+    font-size: 22px !important;
+  }
+  .header-container .wallet h5 {
+    font-size: 18px !important;
+  }
+  .transection .w-75 {
+    width: 100% !important;
+  }
+  .transection h5 {
+    font-size: 14px !important;
+  }
+  .transection p {
+    font-size: 10px !important;
+  }
+  .transection .transection-ball {
+    width: 35px !important;
+    height: 35px !important;
+    line-height: 35px !important;
+  }
+}
+
+body {
+  height: 100vh;
+}
+
+.bg-login-image {
+  background: url("../assets/welcome.svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-register-image {
+  background: url("../assets/setup.svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-password-image {
+  background: url("https://picsum.photos/1280");
+  background-position: center;
+  background-size: cover;
+}
+
+form.user .custom-checkbox.small label {
+  line-height: 1.5rem;
+}
+
+form.user .form-control-user {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 1.5rem 1rem;
+}
+
+form.user .btn-user {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 0.75rem 1rem;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(45deg, #40bf19, #ff7a7a);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* custom form */
+.form_div {
+  position: relative;
+  height: 48px;
+  margin-bottom: 1rem;
+}
+
+.form_input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: var(--normal-font-size);
+  border: 1px solid #ff7a7a;
+  border-radius: 3rem;
+  outline: none;
+  padding: 1rem;
+  background: none;
+  z-index: 1;
+}
+
+.form_label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0 .25rem;
+  background: #fff;
+  color: #40bf19;
+  font-size: var(--normal-font-size);
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.form_input:focus + .form_label {
+  top: -.5rem;
+  left: .8rem;
+  color: #40bf19;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 10;
+}
+
+.form_input:not(:placeholder-shown).form_input:not(:focus) + .form_label {
+  top: -.5rem;
+  left: .8rem;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 10;
+}
+
+.form_input:focus {
+  border: 2px solid #ff7a7a;
+}
+
+.form_input.invalid {
+  border: 2px solid red;
+}
+
+.form_label.invalid {
+  color: red;
+}
+
+/* custom form */
+/*# sourceMappingURL=exchange.css.map */

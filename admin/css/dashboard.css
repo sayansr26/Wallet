@@ -1,0 +1,360 @@
+@font-face {
+    font-family: Poppins;
+    src: url('../fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: Megrim;
+    src: url('../fonts/Megrim-Regular.ttf');
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(#F0D145, #ff3f3f);
+    font-family: Poppins, sans-serif;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* sidebar */
+
+.wrapper .sidebar {
+    width: 150px;
+    min-height: 100vh;
+}
+
+.wrapper .sidebar .side-menu {
+    display: flex;
+    /* height: 5%; */
+    flex-direction: column;
+    /* justify-content: space-between; */
+    color: #fff;
+}
+
+.wrapper .sidebar .side-menu .icon {
+    margin-top: 10px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.wrapper .sidebar .side-menu .icon h5 {
+    font-family: Megrim;
+    color: #333;
+    margin-top: 10px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+    text-align: center;
+    border-radius: 15px;
+    background: transparent;
+}
+
+.wrapper .sidebar .side-menu .items {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    padding-left: 10px;
+}
+
+.wrapper .sidebar .side-menu .items a {
+    color: #fff;
+    height: 45px;
+    width: 150px;
+    padding: 0 5px;
+    line-height: 45px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin: 5px 0;
+}
+
+.wrapper .sidebar .side-menu .items a:hover,
+.wrapper .sidebar .side-menu .items a.active {
+    background: #fff;
+    color: #333;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* sidebar */
+
+
+/* site content */
+
+.wrapper .container {
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    background: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 10px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .container .profile {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 15px;
+    padding: 5px;
+    border-bottom: 3px solid #F0D145;
+}
+
+.wrapper .container .profile .info {
+    display: flex;
+}
+
+.wrapper .container .profile .info .img {
+    margin-right: 10px;
+}
+
+.wrapper .container .profile .info .img-info span {
+    color: #808080;
+    margin-bottom: 10px;
+}
+
+.wrapper .container .profile a {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    color: #808080;
+}
+
+.wrapper .container .options {
+    display: flex;
+    flex-direction: column;
+    color: #808080;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.wrapper .container .options .title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+}
+
+.wrapper .container .team .title {
+    color: #808080;
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.2) */
+}
+
+.wrapper .container .team .info {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: #F0D145;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.wrapper .container .team .info:hover {
+    background: #808080;
+}
+
+.wrapper .container .manage-links .title {
+    color: #808080;
+}
+
+.wrapper .container .heighlights .title {
+    color: #808080;
+}
+
+
+/* site content */
+
+
+/* fab */
+
+.fav {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #F0D145;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.fav:hover {
+    background: #808080;
+}
+
+.fav a {
+    color: #fff;
+}
+
+
+/* fab */
+
+
+/* custom input */
+
+.custom-form-input {
+    width: 100%;
+    height: 35px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    margin: 4px 0;
+}
+
+.custom-form-input input {
+    width: 90%;
+    margin-left: 10px !important;
+    background: transparent;
+    outline: none;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.custom-form-input span {
+    width: 10%;
+    height: 100%;
+    line-height: 35px;
+    background: #F0D145;
+    color: #fff;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.custom-form-input span a {
+    color: #fff;
+}
+
+
+/* custom input */
+
+
+/* viewports */
+
+@media only screen and (max-width: 768px) {
+    .wrapper .sidebar {
+        width: 100px;
+    }
+    .wrapper .sidebar .side-menu {
+        height: 40%;
+    }
+    .wrapper .sidebar .side-menu .icon i {
+        font-size: 20px;
+    }
+    .wrapper .sidebar .side-menu .icon h5 {
+        font-size: 15px;
+    }
+    .wrapper .sidebar .side-menu .items a {
+        width: 100px;
+    }
+    .wrapper .sidebar .side-menu .items a span {
+        font-size: 10px;
+        font-weight: 700;
+    }
+    .wrapper .container .profile {
+        margin-top: 10px;
+        border-radius: 15px;
+        padding: 5px;
+        border-top: 2px solid #F0D145;
+        border-left: 2px solid #F0D145;
+        /* box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.3); */
+    }
+    .wrapper .container {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .profile .info .img {
+        width: 25px;
+        height: 25px;
+    }
+    .wrapper .container .profile .info .img-info h5 {
+        font-size: small;
+    }
+    .wrapper .container .profile .info .img-info span {
+        font-size: smaller;
+    }
+}
+
+
+/* viewports */
+
+
+/* customize login modal */
+
+.modal-content {
+    padding: 1rem 1.2rem;
+}
+
+.modal-content h5 span {
+    font-size: smaller;
+    cursor: pointer;
+}
+
+.modal-content .devider {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.5px;
+    margin-bottom: 10px;
+    width: 75% !important;
+}
+
+.modal-content a {
+    text-decoration: none !important;
+}
+
+
+/* customize login modal */
+
+
+/* secret card */
+
+.secret-container {
+    border: 3px solid #333;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.canvas {
+    position: absolute;
+    top: 0;
+}
+
+.form {
+    padding: 20px;
+}
+
+
+/* secret card */
+
+
+/* ad-view */
+
+.ad-view {
+    overflow: hidden;
+}
+
+
+/* ad-view */

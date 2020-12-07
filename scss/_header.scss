@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
+@keyframes yourAnimation {
+  0.0% {
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+  49.9% {
+    transform: translate(0px, 10px);
+  }
+}
+
+.header-container {
+  min-height: 80vh;
+  background: url($header-image);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  .animated-element {
+    animation: yourAnimation 2.5s ease-in-out 0s infinite normal none;
+  }
+  .navbar-brand {
+    font-family: "Nerko One", cursive;
+    font-size: 1.9rem;
+  }
+  .btn-custom {
+    background: transparent !important;
+    color: $color-accent !important;
+    border: 2px solid $color-accent;
+    border-radius: 3rem;
+    padding: 5px 20px !important;
+    font-weight: 700 !important;
+    transition: all 0.5s ease-in-out !important;
+    &:hover {
+      background: $color-accent !important;
+      color: white !important;
+    }
+  }
+  .card {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 3rem !important;
+    border-bottom-left-radius: 3rem !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .active {
+    border-bottom: 2px solid #fff !important;
+  }
+  .nav-item {
+    &:hover {
+      border-bottom: 2px solid #fff !important;
+    }
+  }
+  .card-title {
+    color: $color-accent;
+    font-weight: 600;
+  }
+  .card {
+    p {
+      font-size: 12px;
+      text-align: start;
+      color: #333;
+    }
+  }
+}
+
+@media only screen and(max-width: 768px) {
+  .hidden-image {
+    display: none;
+  }
+}

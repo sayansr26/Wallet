@@ -126,7 +126,7 @@ if (isset($_GET['auth'])) {
                 ";
         }
     } elseif ($data == 'exchnages') {
-        $query = "SELECT * FROM exchnages";
+        $query = "SELECT * FROM transection";
         $statement = $connection->prepare($query);
         $statement->execute();
         $rowCount = $statement->rowCount();
@@ -239,7 +239,7 @@ if (isset($_GET['auth'])) {
             foreach ($result as $row) {
                 $id = $row['id'];
                 $currency = $row['currency'];
-                $fee = $row['fee'];
+                $fee = $row['rate'];
 
                 echo "
                         <tr>
@@ -268,7 +268,7 @@ if (isset($_GET['auth'])) {
             foreach ($result as $row) {
                 $id = $row['id'];
                 $currency = $row['currency'];
-                $fee = $row['fee'];
+                $fee = $row['rate'];
 
                 echo "  <h5 class='text-center'>Exchnage Rate</h5>
                         <hr>
@@ -308,7 +308,7 @@ if (isset($_GET['auth'])) {
         $status = $_POST['status'];
 
         try {
-            $update = "UPDATE exchnages SET status = '$status' WHERE id = $transid";
+            $update = "UPDATE transection SET status = '$status' WHERE id = $transid";
             $connection->exec($update);
             echo "success";
         } catch (PDOException $e) {
@@ -319,7 +319,7 @@ if (isset($_GET['auth'])) {
         $currency = $_POST['currency'];
         $fee = $_POST['fee'];
         try {
-            $update = "UPDATE exchnage_rate SET fee = '$fee' WHERE id = '$id'";
+            $update = "UPDATE exchnage_rate SET rate = '$fee' WHERE id = '$id'";
             $connection->exec($update);
             echo "success";
         } catch (PDOException $e) {

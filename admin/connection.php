@@ -2,7 +2,7 @@
 
 //  getting connection information
 
-$dsn = "mysql:host=localhost;dbname=exchnage";
+$dsn = "mysql:host=localhost;dbname=wallet";
 $user = "root";
 $password = "";
 
@@ -14,6 +14,3 @@ try{
 }catch(PDOException $e){
     echo "COnnection Failed: " . $e->getMessage();
 }
-
-
-?>

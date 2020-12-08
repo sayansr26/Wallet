@@ -22,18 +22,20 @@ if (login()) {
         $balanceToAdd = 0;
         if ($total > $balance) {
             $balanceToAdd = $total - $balance;
-            $razorpayBalance  = $balanceToAdd * 100;
+            $razorpayBalance  = ($balanceToAdd * 100);
         }
     }
-    $keyId = 'rzp_test_n3hzno9GxC7dTy';
-    $secretKey = 'dG2RVfWFPxx9Tn49mZR550kB';
-    $api = new Api($keyId, $secretKey);
-    $order = $api->order->create(array(
-        'receipt' => $transectionIdProtect,
-        'amount' => $razorpayBalance,
-        'payment_capture' => 1,
-        'currency' => 'INR'
-    ));
+    if ($balanceToAdd > 0) {
+        $keyId = 'rzp_test_n3hzno9GxC7dTy';
+        $secretKey = 'dG2RVfWFPxx9Tn49mZR550kB';
+        $api = new Api($keyId, $secretKey);
+        $order = $api->order->create(array(
+            'receipt' => $transectionIdProtect,
+            'amount' => $razorpayBalance,
+            'payment_capture' => 1,
+            'currency' => 'INR'
+        ));
+    }
 ?>
     <!DOCTYPE html>
     <html lang="en">

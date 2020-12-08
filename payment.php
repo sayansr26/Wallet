@@ -2,6 +2,9 @@
 
 require('include/config.php');
 require('include/function.php');
+require_once('vendors/razorpay-php/Razorpay.php');
+
+use Razorpay\Api\Api;
 
 
 $username = $_POST['username'];
@@ -10,7 +13,15 @@ $transection = $_POST['transection'];
 $amount = $_POST['amount'];
 $newBalance = $balance + $amount;
 $razorpayBalance = $amount * 100;
-$api = "rzp_test_tUegLI4DOCMOGI";
+$keyId = 'rzp_test_n3hzno9GxC7dTy';
+$secretKey = 'dG2RVfWFPxx9Tn49mZR550kB';
+$api = new Api($keyId, $secretKey);
+$order = $api->order->create(array(
+    'receipt' => $transection,
+    'amount' => $razorpayBalance,
+    'payment_capture' => 1,
+    'currency' => 'INR'
+));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +55,8 @@ $api = "rzp_test_tUegLI4DOCMOGI";
                         <li class="nav-item">
                             <a class="nav-link" href="affilate">Affilate</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="testimonial">Testimonial <span class="sr-only">(current)</span></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="testimonial">Testimonial</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact">Contact</a>
@@ -124,12 +135,13 @@ $api = "rzp_test_tUegLI4DOCMOGI";
                             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
                             <script>
                                 var options = {
-                                    "key": "<?php echo $api; ?>", // Enter the Key ID generated from the Dashboard
-                                    "amount": "<?php echo $razorpayBalance; ?>", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                    "key": "<?php echo $keyId; ?>", // Enter the Key ID generated from the Dashboard
+                                    "amount": "<?php echo $order->amount; ?>", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                                     "currency": "INR",
                                     "name": "Exchange",
                                     "description": "Test Transaction",
                                     "image": "https://picsum.photos/500",
+                                    "order_id": "<?php echo $order->id ?>",
                                     "handler": function(response) {
                                         $('#pay_id').val(response.razorpay_payment_id);
                                         $.ajax({
@@ -155,7 +167,7 @@ $api = "rzp_test_tUegLI4DOCMOGI";
                                         "address": "Razorpay Corporate Office"
                                     },
                                     "theme": {
-                                        "color": "#5f27cd"
+                                        "color": "#40bf19"
                                     }
                                 };
                                 var rzp1 = new Razorpay(options);

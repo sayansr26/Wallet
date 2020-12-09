@@ -7,7 +7,7 @@ if (login()) {
     if (isset($_GET['id'])) {
         $view_id = $_GET['id'];
     }
-    $uid = $_COOKIE['uid'];
+    $uid = $_COOKIE['aid'];
     $query = "SELECT * FROM admin_users WHERE id = :id";
     $statement = $connection->prepare($query);
     $statement->execute(
@@ -26,18 +26,18 @@ if (login()) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
         <!-- font awesome bootstrap master css placeholder -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/all.css">
         <link rel="stylesheet" href="css/placeholder-loading.min.css">
         <link rel="stylesheet" href="css/master.css">
-        <title>Exchnage Users</title>
+        <title>Exchnage Transections</title>
     </head>
 
     <body>
         <div class="wrapper">
-            <nav class="navbar navbar-expand-sm navbar-light bg-warning">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
                 <a class="navbar-brand" href="/admin/">
                     <!-- <img src="assets/Icon.png" alt="icon" class="d-inline-block align-center mr-1" height="30" width="30"> -->
                     <strong>Exchnages</strong>
@@ -66,7 +66,7 @@ if (login()) {
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="assets/favicon.png" alt="#" width="25" height="25" class="rounded rounded-circle border border-dark d-inline-block align-top mr-1">
+                                <img src="assets/favicon.ico" alt="#" width="25" height="25" class="rounded rounded-circle border border-dark d-inline-block align-top mr-1">
                                 <span class='d-inline-block'><?php echo $username; ?></span>
                             </a>
                             <div class="dropdown-menu w-50 fade" aria-labelledby="navbarDropdown">

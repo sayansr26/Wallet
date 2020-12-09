@@ -1,8 +1,8 @@
 <?php
 
 $dbn = "mysql:host=localhost;dbname=wallet";
-$user = "root";
-$password = "";
+$user = "admin";
+$password = "1511";
 
 $connection = new PDO($dbn, $user, $password);
 

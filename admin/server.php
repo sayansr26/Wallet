@@ -28,7 +28,7 @@ if (isset($_GET['auth'])) {
                 $result = $statement->fetchAll();
                 foreach ($result as $row) {
                     if ($password_md5 == $row['password']) {
-                        setcookie('uid', $row['id'], time() + 3600);
+                        setcookie('aid', $row['id'], time() + 3600);
                         echo "success";
                     } else {
                         echo "invalid_password";
@@ -142,6 +142,15 @@ if (isset($_GET['auth'])) {
                 $date = $row['date'];
                 $date = strtotime($date);
                 $date = date('Y m d', $date);
+                if ($status == 'accepted') {
+                    $status = "<th scope='col' class='text-warning'>$status</th>";
+                } elseif ($status == 'rejected') {
+                    $status = "<th scope='col' class='text-danger'>$status</th>";
+                } elseif ($status == 'complete') {
+                    $status = "<th scope='col' class='text-success'>$status</th>";
+                } elseif ($status == 'bank process') {
+                    $status = "<th scope='col' class='text-success'>$status</th>";
+                }
 
                 echo "
                         <tr>
@@ -150,7 +159,7 @@ if (isset($_GET['auth'])) {
                             <th scope='col'>$recived_amount</th>
                             <th scope='col'>$havetoSend</th>
                             <th scope='col'>$reazorpayId</th>
-                            <th scope='col'>$status</th>
+                            $status
                             <th scope='col'>$date</th>
                             <th scope='col'>
                                 <a href='transdetails?id=$id' class='btn btn-warning btn-sm shadow'><i class='fas fa-eye'></i>&nbsp;View</a>
@@ -312,6 +321,51 @@ if (isset($_GET['auth'])) {
                     ";
             }
         }
+    } elseif ($data = 'requests') {
+        $query = "SELECT * FROM transection WHERE status = :status";
+        $statement = $connection->prepare($query);
+        $statement->execute(
+            array(
+                'status' => 'accepted',
+            )
+        );
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+            $id = $row['id'];
+            $username = $row['username'];
+            $date = $row['date'];
+            $status = $row['status'];
+            $type = $row['type'];
+            $date = strtotime($date);
+            $date = date('d M Y', $date);
+
+            if ($status == 'accepted') {
+                $status = "<th scope='col' class='text-warning'>$status</th>";
+            }
+
+            if ($type == '1') {
+                $type = 'Bank Transfer';
+            } elseif ($type == '2') {
+                $type = 'Bank Transfer';
+            } elseif ($type == '3') {
+                $type = 'Withdrawl';
+            } elseif ($type == '4') {
+                $type = 'Add Money';
+            }
+
+            echo "
+                <tr>
+                    <th scope='col'>$id</th>
+                    <th scope='col'>$username</th>
+                    <th scope='col'>$date</th>
+                    <th scope='col'>$type</th>
+                    $status
+                    <th scope='col'>
+                        <a href='transdetails?id=$id' class='btn btn-warning btn-sm shadow'><i class='fas fa-eye'></i>&nbsp;View</a>
+                    </th>
+                </tr>
+            ";
+        }
     }
 } elseif (isset($_GET['update'])) {
     $update = $_GET['update'];
@@ -322,7 +376,64 @@ if (isset($_GET['auth'])) {
         try {
             $update = "UPDATE transection SET status = '$status' WHERE id = $transid";
             $connection->exec($update);
-            echo "success";
+            $query = "SELECT * FROM transection WHERE id = :id";
+            $statement = $connection->prepare($query);
+            $statement->execute(
+                array(
+                    'id' => $transid
+                )
+            );
+            $result = $statement->fetchAll();
+            foreach ($result as $row) {
+                $transectionid = $row['transectionid'];
+                $type = $row['type'];
+                $username = $row['username'];
+                if ($type == '1') {
+                    $type = 'Bank Transfer';
+                } elseif ($type == '2') {
+                    $type = 'Bank Transfer';
+                } elseif ($type == '3') {
+                    $type = 'Withdrawl';
+                } elseif ($type == '4') {
+                    $type = 'Add Money';
+                }
+            }
+
+            $query2 = "SELECT * FROM user_data WHERE username = :username";
+            $statement2 = $connection->prepare($query2);
+            $statement2->execute(
+                array(
+                    'username' => $username
+                )
+            );
+            $result2 = $statement2->fetchAll();
+            foreach ($result2 as $row2) {
+                $email = $row2['email'];
+            }
+            $subject = "Transection Status Chanage";
+            $body = "Hi, $username <br> Your transection status change to $status <br> With transection id : $transectionid <br> Transection Type : $type <br> Thank You for using our services. Team Digitalcash";
+            require 'smtp/PHPMailerAutoload.php';
+            $mail = new PHPMailer;
+            // $mail->SMTPDebug = 4;
+            $mail->isSMTP();
+            $mail->Host = 'mail.siaaw.tk';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'info@siaaw.tk';
+            $mail->Password = 'Sayan@159';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+            $mail->IsHTML(true);
+            $mail->setFrom('info@siaaw.tk', 'no-reply');
+            $mail->addAddress($email);
+            $mail->addAddress('info.zestwallet@gmail.com');
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            if (!$mail->send()) {
+                echo "error";
+            } else {
+                echo "Success";
+            }
+            // echo "$email <br> $transectionid <br> $type";
         } catch (PDOException $e) {
             echo "Faield : " . $e->getMessage();
         }

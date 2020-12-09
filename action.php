@@ -130,8 +130,8 @@ if (isset($_GET['setup'])) {
         $total = $_POST['total'];
         $balance = $_POST['balance'];
         $email = "";
-        $subject = "";
-        $body = "Transection successfull amount paid $sentamount & transection id $transection";
+        $subject = "Transection Successfull";
+        $body = "Transection successfull amount paid $sentamount & transection id $transection <br> Thank You for using our services. Team Digitalcash";
 
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, ban, account, ifsc, bank, transectionid, razorpay,status) VALUES('$sentamount','$charge','$total', '1',now(),'$username','$ban','$account','$ifsc','$bank','$transection','$pay_id','accepted')";
@@ -192,8 +192,8 @@ if (isset($_GET['setup'])) {
         $balance = $_POST['balance'];
         $new = $balance - $total;
         $email = "";
-        $subject = "";
-        $body = "Transection successfull amount paid $sentamount & transection id $transection";
+        $subject = "Transection Successfull";
+        $body = "Transection successfull amount paid $sentamount & transection id $transection <br> Thank You for using our services. Team Digitalcash";
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, ban, account, ifsc, bank, transectionid,status) VALUES('$sentamount','$charge','$total', '1',now(),'$username','$ban','$account','$ifsc','$bank','$transection','accepted')";
             $connection->exec($insert);
@@ -257,8 +257,8 @@ if (isset($_GET['setup'])) {
         $total = $amount + $fee;
         $avilable = $balance - $total;
         $email = "";
-        $subject = "";
-        $body = "Transection successfull amount paid $amount & transection id $transection";
+        $subject = "Transection Successfull";
+        $body = "Transection successfull amount paid $amount & transection id $tarnsection <br> Thank You for using our services. Team Digitalcash";
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, transectionid, status) VALUES('$amount','$fee','$total','$type',now(),'$username','$tarnsection','$status')";
             $connection->exec($insert);
@@ -315,8 +315,8 @@ if (isset($_GET['setup'])) {
         $charge = 0;
         $total = $amount;
         $email = "";
-        $subject = "";
-        $body = "Transection successfull amount paid $amount & transection id $transection";
+        $subject = "Transection Successfull";
+        $body = "Transection successfull amount paid $amount & transection id $transection <br> Thank You for using our services. Team Digitalcash";
 
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, razorpay, transectionid, status) VALUES('$amount','$charge','$total','$type',now(),'$username','$pay_id','$transection','accepted')";

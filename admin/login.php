@@ -17,7 +17,7 @@ if (!login()) {
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/all.css">
         <link rel="stylesheet" href="css/login.css">
-        <title>Viewerally Admin Login</title>
+        <title>Exchange Admin Login</title>
     </head>
 
     <body>

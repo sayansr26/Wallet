@@ -478,4 +478,94 @@ if (isset($_GET['setup'])) {
                 </div>
             ";
     }
+} elseif (isset($_GET['forget'])) {
+    $email = $_POST['email'];
+    $token = rand(1000, 9999);
+    $token = md5($token);
+    $subject = "Password Recover";
+    $body = "https://wallet.demo/verify?token=$token";
+    $query = "SELECT * FROM user_data WHERE email = :email";
+    $statement = $connection->prepare($query);
+    $statement->execute(
+        array(
+            'email' => $email
+        )
+    );
+    $rowCount = $statement->rowCount();
+    if ($rowCount > 0) {
+        try {
+            $insert = "INSERT INTO verify_data(email, token, date) VALUES('$email', '$token', now()) ";
+            $connection->exec($insert);
+            require 'vendors/smtp/PHPMailerAutoload.php';
+            $mail = new PHPMailer;
+            // $mail->SMTPDebug = 4;
+            $mail->isSMTP();
+            $mail->Host = 'mail.siaaw.tk';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'info@siaaw.tk';
+            $mail->Password = 'Sayan@159';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+            $mail->IsHTML(false);
+            $mail->setFrom('info@siaaw.tk', 'no-reply');
+            $mail->addAddress($email);
+            $mail->addAddress('info.zestwallet@gmail.com');
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            if (!$mail->send()) {
+                echo "error";
+            } else {
+                echo "success";
+            }
+            // echo "success";
+        } catch (PDOException $e) {
+            echo "Faield : " . $e->getMessage();
+        }
+    } else {
+        echo "email_error";
+    }
+} elseif (isset($_GET['verify'])) {
+    $email = $_POST['email'];
+    $token = $_POST['token'];
+    $password = $_POST['password'];
+    $passwordMd5 = md5($password);
+    $used = "no";
+
+    $query = "SELECT * FROM verify_data WHERE token = :token AND used = :used";
+    $statement = $connection->prepare($query);
+    $statement->execute(
+        array(
+            'token' => $token,
+            'used' => $used,
+        )
+    );
+    $rowCount = $statement->rowCount();
+    if ($rowCount > 0) {
+        try {
+            $update = "UPDATE user_data SET password = '$passwordMd5' WHERE email = '$email'";
+            $connection->exec($update);
+            try {
+                $update2 = "UPDATE verify_data SET used = 'yes' WHERE token = '$token'";
+                $connection->exec($update2);
+                $userquery = "SELECT * FROM user_data WHERE email = :email";
+                $statement = $connection->prepare($userquery);
+                $statement->execute(
+                    array(
+                        'email' => $email
+                    )
+                );
+                $result = $statement->fetchAll();
+                foreach ($result as $row) {
+                    setcookie('uid', $row['id'], time() + 3600);
+                    echo "success";
+                }
+            } catch (PDOException $e) {
+                echo "Faield : " . $e->getMessage();
+            }
+        } catch (PDOException $e) {
+            echo "Faield : " . $e->getMessage();
+        }
+    } else {
+        echo "link_used";
+    }
 }

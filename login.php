@@ -64,6 +64,10 @@ if (!login()) {
                                         <br>
                                         <hr>
                                         <div class="text-center">
+                                            <a class="small" href="forget">Forget Password ? </a>
+                                        </div>
+                                        <br>
+                                        <div class="text-center">
                                             <a class="small" href="signup">Don't have an account ? Singup</a>
                                         </div>
                                         <br>

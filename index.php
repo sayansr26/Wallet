@@ -40,10 +40,10 @@ $username = "";
                             <a class="nav-link" href="affilate">Affilate</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="testimonial">Testimonial</a>
+                            <a class="nav-link" href="contact">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact">Contact</a>
+                            <a class="nav-link text-white font-weight-bold" href="tel://917024394944"><i class="fas fa-phone"></i>&nbsp;&nbsp;+91 7024394944</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav mr-1">
@@ -94,6 +94,7 @@ $username = "";
                         <div class="card-body">
                             <form action="transfer" id="transfer-form" method="POST">
                                 <input type="hidden" name="username">
+                                <h1 class="text-center font-weight-bold" style="color: #707070;">Zestmoney To Bank Transfer Instantly</h1>
                                 <div class="d-flex text-center justify-content-around align-items-center">
                                     <h5 class="card-title text-center"><i class="fas fa-arrow-circle-up"></i>&nbsp;Send</h5>
                                     <h5 class="card-title text-center"><i class="fas fa-arrow-circle-down"></i>&nbsp;Recive</h5>
@@ -101,7 +102,7 @@ $username = "";
                                 <div class="d-flex text-center justify-content-around align-items-center">
                                     <img src="assets/send.png" class="img-fluid hidden-image" width="75" height="75" alt="">
                                     <select name="send_money" id="send" class="form-control mx-2">
-                                        <option value="wallet">Wallet</option>
+                                        <option value="wallet">ZestMoney</option>
                                     </select>
                                     <select name="recive_money" id="send" class="form-control mx-2">
                                         <option value="bank">Bank Transfer</option>
@@ -148,6 +149,9 @@ $username = "";
                                 }
                                 ?>
                                 <br>
+                                <div class="text-center">
+                                    <a class="text-center" href=""><img src="assets/download.png" height="50" class="text-center img-fluid" alt="download"></a>
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -1,84 +1,151 @@
 <?php
 
-require('connection.php');
-require('function.php');
+require('./include/functions.php');
 
-if (!login()) {
+if (setup()) {
+
 
 ?>
+
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
-        <!-- font awesome bootstrap master and placeholder-->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/all.css">
-        <link rel="stylesheet" href="css/login.css">
-        <title>Exchange Admin Login</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Admin Panel - Login</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
     </head>
 
-    <body>
-        <div class="wrapper">
-            <div class="container">
-                <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="card shadow">
-                            <div class="card-body">
-                                <h5 class="text-center"><strong>Login</strong></h5>
-                                <hr>
-                                <form action="#" method="POST" id="login-form">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-user"></i>
-                                                </span>
+    <body class="bg-gradient-primary">
+
+        <div class="container">
+
+            <!-- Outer Row -->
+            <div class="row justify-content-center">
+
+                <div class="col-xl-10 col-lg-12 col-md-9">
+
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        </div>
+                                        <form class="user" id="signin-form" action="#" method="POST">
+                                            <div class="form-group">
+                                                <div class="form_div">
+                                                    <input type="text" name="username" id="username" class="form_input" placeholder=" ">
+                                                    <label for="username" id="username-label" class="form_label">Username</label>
+                                                </div>
                                             </div>
-                                            <input type="text" name="username" id="username" placeholder="Username" class="form-control rounded-right">
-                                            <div class="invalid-feedback" id="invalid-username"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-key"></i>
-                                                </span>
+                                            <div class="form-group">
+                                                <div class="form_div">
+                                                    <input type="password" name="password" id="password" class="form_input" placeholder=" ">
+                                                    <label for="password" id="password-label" class="form_label">Password</label>
+                                                </div>
                                             </div>
-                                            <input type="password" name="password" id="password" placeholder="Password" class="form-control rounded-right">
-                                            <div class="invalid-feedback" id="invalid-password"></div>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox small">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                    <label class="custom-control-label" for="customCheck">Remember
+                                                        Me</label>
+                                                </div>
+                                            </div>
+                                            <a href="#" type="button" onclick="signIn()" class="btn btn-primary btn-user btn-block">
+                                                Login
+                                            </a>
+                                            <hr>
+                                            <a href="#" class="btn btn-google btn-user btn-block">
+                                                <i class="fab fa-google fa-fw"></i> Login with Google
+                                            </a>
+                                            <a href="#" class="btn btn-facebook btn-user btn-block">
+                                                <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                            </a>
+                                        </form>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        </div>
+                                        <br>
+                                        <div class="text-center">
+                                            <a class="small" href="/">&copy;All Right Reserved Website 2020</a>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary btn-block" onclick="login()">Login</button>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group text-center">
-                                        <div class="spinner-border text-primary" role="status" id="loading" style="display: none;">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
-        <script src="js/jquery-3.5.1.js"></script>
-        <script src="js/popper.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/all.js"></script>
-        <script src="js/master.js"></script>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+        <!-- login script -->
+        <script>
+            function signIn() {
+                $('#username').removeClass('invalid');
+                $('#password').removeClass('invalid');
+                $.ajax({
+                    url: 'action.php?auth=login',
+                    type: 'post',
+                    data: $('#signin-form').serialize(),
+                    success: function(response) {
+                        if (response == 'empty_username') {
+                            $('#username').addClass('invalid');
+                        }
+                        if (response == 'empty_password') {
+                            $('#password').addClass('invalid');
+                        }
+                        if (response == 'invalid_username') {
+                            $('#username').addClass('invalid');
+                        }
+                        if (response == 'invalid_password') {
+                            $('#password').addClass('invalid');
+                        }
+                        if (response == 'success') {
+                            window.location.href = "/admin/";
+                        }
+                    }
+                });
+            }
+        </script>
+
     </body>
 
     </html>
+
 <?php
+
 } else {
-    header('location:/admin/');
+    header('location:setup?msg=You have to complete this setup');
 }
+
 ?>

@@ -37,7 +37,49 @@ if (!login()) {
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                         </div>
-                                        <form class="user" id="signin-form" action="#" method="POST">
+                                        <form class="user" id="signin-form-otp" action="#" method="POST">
+                                            <div class="form-group">
+                                                <div class="form_div">
+                                                    <input type="phone" name="phone" id="phone" class="form_input" placeholder=" ">
+                                                    <label for="phone" id="phone-label" class="form_label">Phone Number</label>
+                                                </div>
+                                            </div>
+                                            <a type="button" onclick="getOTP()" class="btn btn-primary btn-user btn-block">
+                                                Get OTP
+                                            </a>
+                                            <br>
+                                            <hr>
+                                            <div class="text-center">
+                                                <a class="small" type="button" onclick="passwordLogin()">Login With Password ? </a>
+                                            </div>
+                                            <br>
+                                            <div class="text-center">
+                                                <a class="small" href="signup">Don't have an account ? Singup</a>
+                                            </div>
+                                            <br>
+                                        </form>
+                                        <form style="display: none;" class="user" id="signin-form-verify" action="#" method="POST">
+                                            <div class="form-group">
+                                                <div class="form_div">
+                                                    <input type="password" name="otp" id="otp" class="form_input" placeholder=" ">
+                                                    <label for="otp" id="otp-label" class="form_label">Enter OTP</label>
+                                                </div>
+                                            </div>
+                                            <a type="button" onclick="verifyOTP()" class="btn btn-primary btn-user btn-block">
+                                                Verify & Login
+                                            </a>
+                                            <br>
+                                            <hr>
+                                            <div class="text-center">
+                                                <a class="small" type="button" onclick="passwordLogin()">Login With Password ? </a>
+                                            </div>
+                                            <br>
+                                            <div class="text-center">
+                                                <a class="small" href="signup">Don't have an account ? Singup</a>
+                                            </div>
+                                            <br>
+                                        </form>
+                                        <form style="display: none;" class="user" id="signin-form" action="#" method="POST">
                                             <div class="form-group">
                                                 <div class="form_div">
                                                     <input type="text" name="username" id="username" class="form_input" placeholder=" ">
@@ -60,17 +102,17 @@ if (!login()) {
                                             <a type="button" onclick="signIn()" class="btn btn-primary btn-user btn-block">
                                                 Login
                                             </a>
+                                            <br>
+                                            <hr>
+                                            <div class="text-center">
+                                                <a class="small" href="forget">Forget Password ? </a>
+                                            </div>
+                                            <br>
+                                            <div class="text-center">
+                                                <a class="small" href="signup">Don't have an account ? Singup</a>
+                                            </div>
+                                            <br>
                                         </form>
-                                        <br>
-                                        <hr>
-                                        <div class="text-center">
-                                            <a class="small" href="forget">Forget Password ? </a>
-                                        </div>
-                                        <br>
-                                        <div class="text-center">
-                                            <a class="small" href="signup">Don't have an account ? Singup</a>
-                                        </div>
-                                        <br>
                                         <div class="text-center">
                                             <a class="small" href="/">&copy;All Right Reserved Website 2020</a>
                                         </div>
@@ -96,7 +138,7 @@ if (!login()) {
         <script>
             function signIn() {
                 $.ajax({
-                    url: 'action.php?auth=login',
+                    url: 'action.php?auth=login&type=password',
                     type: 'POST',
                     data: $('#signin-form').serialize(),
                     success: function(response) {
@@ -118,6 +160,52 @@ if (!login()) {
                         }
                     }
                 });
+            }
+
+            function getOTP() {
+                $.ajax({
+                    url: 'action.php?auth=login&type=otp',
+                    type: 'POST',
+                    data: $('#signin-form-otp').serialize(),
+                    success: function(response) {
+                        if (response == 'empty_phone') {
+                            alert(response);
+                        } else if (response == 'phone_error') {
+                            alert('You dont have an account !');
+                        } else if (response == 'success') {
+                            $('#signin-form-otp').fadeOut(100);
+                            $('#signin-form-verify').delay(100).fadeIn(100);
+                        } else {
+                            alert(response);
+                        }
+                    }
+                });
+            }
+
+            function verifyOTP() {
+                $.ajax({
+                    url: 'action.php?auth=login&type=verify',
+                    type: 'POST',
+                    data: $('#signin-form-verify').serialize(),
+                    success: function(response) {
+                        if (response == 'empty_otp') {
+                            alert('OTP Required !');
+                        } else if (response == 'otp_error') {
+                            alert('Invalid OTP !');
+                        } else if (response == 'success') {
+                            window.location.href = '/';
+                            // alert(response);
+                        } else {
+                            alert(response);
+                        }
+                    }
+                });
+            }
+
+            function passwordLogin() {
+                $('#signin-form-otp').fadeOut(100);
+                $('#signin-form-verify').fadeOut(100);
+                $('#signin-form').delay(100).fadeIn(100);
             }
         </script>
 

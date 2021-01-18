@@ -129,8 +129,8 @@ if (login()) {
                                     <p>WITHDRAWABLE</p>
                                 </div>
                                 <br>
-                                <a href="admoney" class="btn btn-custom btn-block">Add Money</a>
-                                <a href="withdrawl" class="btn btn-custom btn-block">Withdraw</a>
+                                <a type="button" class="btn btn-custom btn-block">Add Money</a>
+                                <a type="button" class="btn btn-custom btn-block">Withdraw</a>
                             </div>
                         </div>
                     </div>

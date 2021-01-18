@@ -8,10 +8,115 @@ if (login()) {
     $exchangeRate = "";
     $charge = "";
     $total = "";
+
+
+
+
+
+
     if (isset($_GET['username'])) {
         $username = $_GET['username'];
         $balance = $_GET['balance'];
         $sentamount = $_GET['sentamount'];
+
+        $phoneQuery = "SELECT * FROM user_data WHERE username = :username";
+        $statement = $connection->prepare($phoneQuery);
+        $statement->execute(
+            array(
+                'username' => $username
+            )
+        );
+        $result  = $statement->fetchAll();
+        foreach ($result as $row) {
+            $phone = $row['phone'];
+
+            $accountQuery = "SELECT * FROM accounts WHERE phone = :phone";
+            $statement = $connection->prepare($accountQuery);
+            $statement->execute(
+                array(
+                    'phone' => $phone
+                )
+            );
+            $rowCount = $statement->rowCount();
+            $result = $statement->fetchAll();
+            if ($rowCount > 0) {
+                foreach ($result as $row) {
+                    $ban = $row['banificary'];
+                    $acc = $row['account'];
+                    $isc = $row['ifsc'];
+                    $bank = $row['bank_name'];
+                    $banificary = "
+                                <div class='form-group'>
+                                    <div class='form_div'>
+                                        <input type='text' class='form_input' placeholder=' ' disabled value='" . $row['banificary'] . "'>
+                                        <label for='ban' id='ban-label' class='form_label'>Banificary Name</label>
+                                    </div>
+                                </div>   
+                                ";
+                    $account = "
+                        <div class='form-group'>
+                            <div class='form_div'>
+                                <input type='text' disabled value='" . $row['account'] . "' class='form_input' placeholder=' ' required>
+                                <label for='account' id='account-label' class='form_label'>Account Number</label>
+                            </div>
+                        </div>";
+                    $confirmAccount = "";
+                    $ifsc = "<div class='form-group'>
+                    <div class='form_div'>
+                        <input type='text' disabled value='" . $row['ifsc'] . "' class='form_input' placeholder=' ' required>
+                        <label for='ifsc' id='ifsc-label' class='form_label'>IFSCCODE</label>
+                    </div>
+                </div>";
+                    $bankName = "<div class='form-group'>
+                    <div class='form_div'>
+                        <input type='text' disabled value='" . $row['bank_name'] . "' class='form_input' placeholder=' ' required>
+                        <label for='bank' id='bank-label' class='form_label'>Bank Name</label>
+                    </div>
+                </div> ";
+                }
+            } else {
+                $banificary = "
+                    <div class='form-group'>
+                        <div class='form_div'>
+                            <input type='text' name='ban' id='ban' class='form_input' placeholder=' ' required>
+                            <label for='ban' id='ban-label' class='form_label'>Banificary Name</label>
+                        </div>
+                    </div>
+                ";
+                $account = "
+                    <div class='form-group'>
+                        <div class='form_div'>
+                            <input type='text' name='account' id='account' class='form_input' placeholder=' ' required>
+                            <label for='account' id='account-label' class='form_label'>Account Number</label>
+                        </div>
+                    </div> 
+                ";
+                $confirmAccount = "
+                        <div class='form-group'>
+                            <div class='form_div'>
+                                <input type='text' name='caccount' id='caccount' class='form_input' placeholder=' ' required>
+                                <label for='caccount' id='caccount-label' class='form_label'>Confirm Account Number</label>
+                            </div>
+                        </div>
+                    ";
+                $ifsc = "
+                <div class='form-group'>
+                    <div class='form_div'>
+                        <input type='text' name='ifsc' id='ifsc' class='form_input' placeholder=' ' required>
+                        <label for='ifsc' id='ifsc-label' class='form_label'>IFSCCODE</label>
+                    </div>
+                </div>
+            ";
+                $bankName = "
+                    <div class='form-group'>
+                        <div class='form_div'>
+                            <input type='text' name='bank' id='bank' class='form_input' placeholder=' ' required>
+                            <label for='bank' id='bank-label' class='form_label'>Bank Name</label>
+                        </div>
+                    </div> 
+                ";
+            }
+        }
     }
 
     $rate = "SELECT * FROM exchnage_rate";
@@ -115,9 +220,18 @@ if (login()) {
                                     <input type="hidden" value="<?php echo $balance; ?>" name="balance">
                                     <input type="hidden" value="<?php echo $username; ?>" name="username">
                                     <input type="hidden" value="<?php echo $sentamount; ?>" name="sentamount">
-                                    <input type="hidden" value="<?php echo $sentamount; ?>" name="sentamount">
                                     <input type="hidden" value="<?php echo $charge; ?>" name="charge">
                                     <input type="hidden" value="<?php echo $total; ?>" name="total">
+                                    <?php
+                                    if ($ban != '') {
+                                        echo "
+                                                <input type='hidden' value='$ban' name='ban'>
+                                                <input type='hidden' value='$acc' name='account'>
+                                                <input type='hidden' value='$isc' name='ifsc'>
+                                                <input type='hidden' value='$bank' name='bank'>
+                                            ";
+                                    }
+                                    ?>
                                     <div class="container">
                                         <h5 class="text-center text-heading">Fill Transfer Details</h5>
                                         <hr>
@@ -133,45 +247,21 @@ if (login()) {
                                                 <label class="form_label">Fee</label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="form_div">
-                                                <input type="text" name="ban" id="ban" class="form_input" placeholder=" " required>
-                                                <label for="ban" id="ban-label" class="form_label">Banificary
-                                                    Name</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form_div">
-                                                <input type="text" name="account" id="account" class="form_input" placeholder=" " required>
-                                                <label for="account" id="account-label" class="form_label">Account
-                                                    Number</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form_div">
-                                                <input type="text" name="caccount" id="caccount" class="form_input" placeholder=" " required>
-                                                <label for="caccount" id="caccount-label" class="form_label">Confirm Account
-                                                    Number</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form_div">
-                                                <input type="text" name="ifsc" id="ifsc" class="form_input" placeholder=" " required>
-                                                <label for="ifsc" id="ifsc-label" class="form_label">IFSCCODE</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form_div">
-                                                <input type="text" name="bank" id="bank" class="form_input" placeholder=" " required>
-                                                <label for="bank" id="bank-label" class="form_label">Bank Name</label>
-                                            </div>
-                                        </div>
+                                        <?php echo $banificary; ?>
+                                        <?php echo $account; ?>
+                                        <?php echo $confirmAccount; ?>
+                                        <?php echo $ifsc; ?>
+                                        <?php echo $bankName; ?>
                                         <div class="form-group">
                                             <div class="form_div">
                                                 <input type="text" disabled value="<?php echo $total; ?>" class="form_input" placeholder=" " required>
                                                 <label class="form_label">Total Amount</label>
                                             </div>
                                         </div>
+                                        <div class="from-group">
+                                            <span class="font-small text-secondary"><strong>Note:</strong> You can only transfer money to default account, for changes contact admin</span>
+                                        </div>
+                                        <br>
                                         <button type="button" onclick="process()" class="btn btn-primary btn-user btn-block">
                                             Prossess
                                         </button>

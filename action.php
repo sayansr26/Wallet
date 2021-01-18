@@ -73,34 +73,149 @@ if (isset($_GET['setup'])) {
         echo "transfer?username=$username&balance=$balance&sentamount=$sentamount";
     }
 } elseif (isset($_GET['auth'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $passwordMd5 = md5($password);
-    if ($username == '') {
-        echo 'empty_username';
-    } elseif ($password == '') {
-        echo 'empty_password';
-    } else {
-        $query = "SELECT * FROM user_data WHERE username = :username";
+    $type = $_GET['type'];
+    if ($type == 'otp') {
+        $phone = $_POST['phone'];
+        if ($phone == '') {
+            echo "empty_phone";
+        } else {
+            $query = "SELECT * FROM user_data WHERE phone = :phone";
+            $statement = $connection->prepare($query);
+            $statement->execute(
+                array(
+                    'phone' => $phone
+                )
+            );
+            $rowCount = $statement->rowCount();
+            if ($rowCount > 0) {
+                $name = $phone;
+                $token = rand(100000, 999999);
+                $otpProtected = md5($token);
+                $field = array(
+                    "sender_id" => "FSTSMS",
+                    "language" => "english",
+                    "route" => "qt",
+                    "numbers" => $phone,
+                    "message" => "43538",
+                    "variables" => "{#BB#}",
+                    "variables_values" => $token
+                );
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($field),
+                    CURLOPT_HTTPHEADER => array(
+                        "authorization: YzovdVO34G9anBwrJ5I6pPUEF8ciLgetjRKblyD2MXCq71SfQuSXRKxdzOTgfM6rUaGbBJ5wQ3F0HYNv",
+                        "cache-control: no-cache",
+                        "accept: */*",
+                        "content-type: application/json"
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                if ($err) {
+                    echo "cURL Error #:" . $err;
+                } else {
+                    try {
+                        $insert = "INSERT INTO otp_tokens(otp, phone) VALUE('$otpProtected','$phone')";
+                        $connection->exec($insert);
+                        echo "success";
+                    } catch (PDOException $e) {
+                        echo "Faield : " . $e->getMessage();
+                    }
+                }
+            } else {
+                echo "phone_error";
+            }
+        }
+    } elseif ($type == 'verify') {
+        $otp = $_POST['otp'];
+        $otpProtected = md5($otp);
+        $query = "SELECT * FROM otp_tokens WHERE otp = :otp AND used = :used";
         $statement = $connection->prepare($query);
         $statement->execute(
             array(
-                'username' => $username
+                'otp' => $otpProtected,
+                'used' => 'NO'
             )
         );
         $rowCount = $statement->rowCount();
         if ($rowCount > 0) {
+            // echo "success";
             $result = $statement->fetchAll();
             foreach ($result as $row) {
-                if ($passwordMd5 == $row['password']) {
-                    setcookie('uid', $row['id'], time() + 3600);
-                    echo "success";
-                } else {
-                    echo "invalid_password";
+                $phone = $row['phone'];
+                $userQuery = "SELECT * FROM user_data WHERE phone = :phone";
+                $statement = $connection->prepare($userQuery);
+                $statement->execute(
+                    array(
+                        'phone' => $phone
+                    )
+                );
+                $rowCount = $statement->rowCount();
+                if ($rowCount > 0) {
+                    $result = $statement->fetchAll();
+                    foreach ($result as $row) {
+                        $uid = $row['id'];
+                        // setcookie('uid', $row['id'], time() + 3600);
+                        try {
+                            $update = "UPDATE otp_tokens SET used = 'YES' WHERE phone  = '$phone'";
+                            $connection->exec($update);
+                            setcookie('uid', $row['id'], time() + 3600);
+                            echo "success";
+                        } catch (PDOException $e) {
+                            echo "Faield : " . $e->getMessage();
+                        }
+                    }
                 }
             }
         } else {
-            echo "inavlid_username";
+            echo "otp_error";
+        }
+    } elseif ($type == 'password') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $passwordMd5 = md5($password);
+        if ($username == '') {
+            echo 'empty_username';
+        } elseif ($password == '') {
+            echo 'empty_password';
+        } else {
+            $query = "SELECT * FROM user_data WHERE username = :username";
+            $statement = $connection->prepare($query);
+            $statement->execute(
+                array(
+                    'username' => $username
+                )
+            );
+            $rowCount = $statement->rowCount();
+            if ($rowCount > 0) {
+                $result = $statement->fetchAll();
+                foreach ($result as $row) {
+                    if ($passwordMd5 == $row['password']) {
+                        setcookie('uid', $row['id'], time() + 3600);
+                        echo "success";
+                    } else {
+                        echo "invalid_password";
+                    }
+                }
+            } else {
+                echo "inavlid_username";
+            }
         }
     }
 } elseif (isset($_GET['process'])) {
@@ -120,7 +235,7 @@ if (isset($_GET['setup'])) {
     if ($exchnageType == '1') {
         $username = $_POST['username'];
         $pay_id = $_POST['pay_id'];
-        $transection = $_POST['transection'];
+        $transection = $_POST['order_id'];
         $ban = $_POST['ban'];
         $bank = $_POST['bank'];
         $account = $_POST['account'];
@@ -129,10 +244,6 @@ if (isset($_GET['setup'])) {
         $charge = $_POST['charge'];
         $total = $_POST['total'];
         $balance = $_POST['balance'];
-        $email = "";
-        $subject = "Transection Successfull";
-        $body = "Transection successfull amount paid $sentamount & transection id $transection <br> Thank You for using our services. Team Digitalcash";
-
         try {
             $insert = "INSERT INTO transection(amount, charge, total, type, date, username, ban, account, ifsc, bank, transectionid, razorpay,status) VALUES('$sentamount','$charge','$total', '1',now(),'$username','$ban','$account','$ifsc','$bank','$transection','$pay_id','accepted')";
             $connection->exec($insert);
@@ -148,29 +259,54 @@ if (isset($_GET['setup'])) {
                 );
                 $result = $statement->fetchAll();
                 foreach ($result as $row) {
-                    $email = $row['email'];
+                    $phone = $row['phone'];
                 }
-                require 'vendors/smtp/PHPMailerAutoload.php';
-                $mail = new PHPMailer;
-                // $mail->SMTPDebug = 4;
-                $mail->isSMTP();
-                $mail->Host = 'mail.siaaw.tk';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'info@siaaw.tk';
-                $mail->Password = 'Sayan@159';
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
-                $mail->IsHTML(true);
-                $mail->setFrom('info@siaaw.tk', 'no-reply');
-                $mail->addAddress($email);
-                $mail->addAddress('info.zestwallet@gmail.com');
-                $mail->Subject = $subject;
-                $mail->Body = $body;
-                if (!$mail->send()) {
-                    echo "error";
+                $field = array(
+                    "sender_id" => "FSTSMS",
+                    "language" => "english",
+                    "route" => "qt",
+                    "numbers" => $phone,
+                    "message" => "43557",
+                    "variables" => "{#DD#}",
+                    "variables_values" => $transection
+                );
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($field),
+                    CURLOPT_HTTPHEADER => array(
+                        "authorization: YzovdVO34G9anBwrJ5I6pPUEF8ciLgetjRKblyD2MXCq71SfQuSXRKxdzOTgfM6rUaGbBJ5wQ3F0HYNv",
+                        "cache-control: no-cache",
+                        "accept: */*",
+                        "content-type: application/json"
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                if ($err) {
+                    echo "cURL Error #:" . $err;
                 } else {
-                    $id = $connection->lastInsertId();
-                    echo "success?type=1&transectionid=$transection&senetamount=$sentamount&charge=$charge&total=$total&status=accepted";
+                    try {
+                        $insert = "INSERT INTO otp_tokens(otp, phone) VALUE('$otpProtected','$phone')";
+                        $connection->exec($insert);
+                        echo "success?type=1&transectionid=$transection&senetamount=$sentamount&charge=$charge&total=$total&status=accepted";
+                    } catch (PDOException $e) {
+                        echo "Faield : " . $e->getMessage();
+                    }
                 }
                 // echo "success?type=1&transectionid=$transection&senetamount=$sentamount&charge=$charge&total=$total&status=accepted";
             } catch (PDOException $e) {

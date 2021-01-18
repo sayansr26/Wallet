@@ -21,16 +21,45 @@ if (login()) {
         $transectionIdProtect = sha1($transectionId);
         $balanceToAdd = 0;
         if ($total > $balance) {
+            // echo "$balance";
+            // echo "$total";
             $balanceToAdd = $total - $balance;
             $razorpayBalance  = ($balanceToAdd * 100);
         }
+        $phoneQuery = "SELECT * FROM user_data WHERE username = :username";
+        $statement = $connection->prepare($phoneQuery);
+        $statement->execute(
+            array(
+                'username' => $username
+            )
+        );
+        $result = $statement->fetchAll();
+        foreach ($result as $row) {
+            $phone = $row['phone'];
+
+            $accountQuery = "SELECT * FROM accounts WHERE phone = :phone";
+            $statement = $connection->prepare($accountQuery);
+            $statement->execute(
+                array(
+                    'phone' => $phone
+                )
+            );
+            $rowCount = $statement->rowCount();
+            if ($rowCount < 1) {
+                try {
+                    $insert = "INSERT INTO accounts(banificary, account, ifsc, bank_name, phone, date) VALUES('$ban', '$account', '$ifsc', '$bank', '$phone', now())";
+                    $connection->exec($insert);
+                } catch (PDOException $e) {
+                    echo "Faield : " . $e->getMessage();
+                }
+            }
+        }
     }
     if ($balanceToAdd > 0) {
-        $keyId = 'rzp_test_n3hzno9GxC7dTy';
-        $secretKey = 'dG2RVfWFPxx9Tn49mZR550kB';
+        $keyId = 'rzp_test_zbXyweaueYC68q';
+        $secretKey = 'O7QLX7tCf3NcVtJCJo9i88Er';
         $api = new Api($keyId, $secretKey);
         $order = $api->order->create(array(
-            'receipt' => $transectionIdProtect,
             'amount' => $razorpayBalance,
             'payment_capture' => 1,
             'currency' => 'INR'
@@ -167,6 +196,7 @@ if (login()) {
                                     </div>
                                     <input type="hidden" name="username" id="username" value="<?php echo $username; ?>">
                                     <input type="hidden" name="pay_id" id="pay_id">
+                                    <input type="hidden" name="order_id" id="order_id">
                                     <input type="hidden" name="transection" id="transection" value="<?php echo $transectionIdProtect; ?>">
                                     <?php
                                     if ($balanceToAdd > 0) {
@@ -198,6 +228,7 @@ if (login()) {
                                     "order_id": "<?php echo $order->id ?>",
                                     "handler": function(response) {
                                         $('#pay_id').val(response.razorpay_payment_id);
+                                        $('#order_id').val(response.razorpay_order_id);
                                         $.ajax({
                                             url: 'action.php?exchnage=1',
                                             type: 'post',

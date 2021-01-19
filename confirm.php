@@ -36,6 +36,7 @@ if (login()) {
         $result = $statement->fetchAll();
         foreach ($result as $row) {
             $phone = $row['phone'];
+            $email = $row['email'];
 
             $accountQuery = "SELECT * FROM accounts WHERE phone = :phone";
             $statement = $connection->prepare($accountQuery);
@@ -77,8 +78,18 @@ if (login()) {
         <link rel="stylesheet" href="css/exchange.css">
         <title>Exchange - Confirm</title>
     </head>
+    <style>
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #E4F0F0 url('https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif') no-repeat center center;
+            z-index: 99999;
+        }
+    </style>
 
     <body>
+        <div style="display: none;" id="loading"></div>
         <!-- section header -->
         <section class="header-container">
             <div class="container">
@@ -222,13 +233,14 @@ if (login()) {
                                     "key": "<?php echo $keyId; ?>", // Enter the Key ID generated from the Dashboard
                                     "amount": "<?php echo $order->amount; ?>", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                                     "currency": "INR",
-                                    "name": "Exchange",
-                                    "description": "Test Transaction",
+                                    "name": "Digital Cash 24",
+                                    "description": "Transfer Zestmoney to bank account",
                                     "image": "https://picsum.photos/500",
                                     "order_id": "<?php echo $order->id ?>",
                                     "handler": function(response) {
                                         $('#pay_id').val(response.razorpay_payment_id);
                                         $('#order_id').val(response.razorpay_order_id);
+                                        $('#loading').show();
                                         $.ajax({
                                             url: 'action.php?exchnage=1',
                                             type: 'post',
@@ -245,9 +257,9 @@ if (login()) {
                                         });
                                     },
                                     "prefill": {
-                                        "name": "Test Gatway",
-                                        "email": "info@example.com",
-                                        "contact": "9999999999"
+                                        "name": "<?php echo $ban; ?>",
+                                        "email": "<?php echo $email; ?>",
+                                        "contact": "<?php echo $phone; ?>"
                                     },
                                     "notes": {
                                         "address": "Razorpay Corporate Office"
@@ -268,6 +280,7 @@ if (login()) {
                                 });
                                 document.getElementById('rzp-button1').onclick = function(e) {
                                     rzp1.open();
+                                    // $('#loading').show();
                                     e.preventDefault();
                                 }
                             </script>

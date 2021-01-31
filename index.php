@@ -100,11 +100,13 @@ $username = "";
                                     <h5 class="card-title text-center"><i class="fas fa-arrow-circle-down"></i>&nbsp;Recive</h5>
                                 </div>
                                 <div class="d-flex text-center justify-content-around align-items-center">
-                                    <img src="assets/send.png" class="img-fluid hidden-image" width="75" height="75" alt="">
+                                    <img id="sendimage" src="assets/logo.png" class="img-fluid hidden-image" width="75" height="75" alt="">
                                     <select name="send_money" id="send" class="form-control mx-2">
+                                        <option value="" onchange="imageChange()" disabled selected>Choose An Option</option>
                                         <option value="wallet">ZestMoney</option>
+                                        <option value="amazon">AmazonPay</option>
                                     </select>
-                                    <select name="recive_money" id="send" class="form-control mx-2">
+                                    <select name="recive_money" id="recive" class="form-control mx-2">
                                         <option value="bank">Bank Transfer</option>
                                     </select>
                                     <img src="assets/recive.png" class="img-fluid hidden-image" width="75" height="75" alt="">
@@ -283,14 +285,28 @@ $username = "";
             });
         }
 
+        $('#send').change(function() {
+            var output = $('#send option:selected').val();
+            if (output == 'amazon') {
+                $('#sendimage').attr('src', 'assets/amazon.png');
+            } else if (output == 'wallet') {
+                $('#sendimage').attr('src', 'assets/send.png');
+            }
+        });
+
         function login() {
-            $('#staticBackdrop').modal('show');
+            window.location.href = "https://wallet.test/login";
         }
 
         function transfer() {
+            var wallet = $('#send option:selected').val();
             var sentamount = $('#sentamount').val();
             if (sentamount == '') {
                 alert('Sent amount is required');
+            } else if (sentamount < 1000) {
+                alert('Minimum transfer amount is 1000');
+            } else if (wallet == '') {
+                alert('Choose wallet');
             } else {
                 $.ajax({
                     url: 'action.php?transfer=1',

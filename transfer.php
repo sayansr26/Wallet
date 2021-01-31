@@ -8,6 +8,7 @@ if (login()) {
     $exchangeRate = "";
     $charge = "";
     $total = "";
+    $ban = "";
 
 
 
@@ -18,6 +19,7 @@ if (login()) {
         $username = $_GET['username'];
         $balance = $_GET['balance'];
         $sentamount = $_GET['sentamount'];
+        $option = $_GET['option'];
 
         $phoneQuery = "SELECT * FROM user_data WHERE username = :username";
         $statement = $connection->prepare($phoneQuery);
@@ -222,6 +224,7 @@ if (login()) {
                                     <input type="hidden" value="<?php echo $sentamount; ?>" name="sentamount">
                                     <input type="hidden" value="<?php echo $charge; ?>" name="charge">
                                     <input type="hidden" value="<?php echo $total; ?>" name="total">
+                                    <input type="hidden" value="<?php echo $option; ?>" name="option">
                                     <?php
                                     if ($ban != '') {
                                         echo "

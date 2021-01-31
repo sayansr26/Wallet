@@ -66,11 +66,12 @@ if (isset($_GET['setup'])) {
     $balance = $_POST['balance'];
     $username = $_POST['username'];
     $sentamount = $_POST['sentamount'];
+    $option = $_POST['send_money'];
     if ($sentamount == '') {
         $sentamount = "0";
-        echo "transfer?username=$username&balance=$balance&sentamount=$sentamount";
+        echo "transfer?username=$username&balance=$balance&sentamount=$sentamount&option=$option";
     } else {
-        echo "transfer?username=$username&balance=$balance&sentamount=$sentamount";
+        echo "transfer?username=$username&balance=$balance&sentamount=$sentamount&option=$option";
     }
 } elseif (isset($_GET['auth'])) {
     $type = $_GET['type'];
@@ -228,8 +229,9 @@ if (isset($_GET['setup'])) {
     $ifsc = $_POST['ifsc'];
     $bank = $_POST['bank'];
     $total = $_POST['total'];
+    $option = $_POST['option'];
 
-    echo "confirm?username=$username&ban=$ban&balance=$balance&sentamount=$sentamount&charge=$charge&account=$account&ifsc=$ifsc&bank=$bank&total=$total";
+    echo "confirm?username=$username&ban=$ban&balance=$balance&sentamount=$sentamount&charge=$charge&account=$account&ifsc=$ifsc&bank=$bank&total=$total&option=$option";
 } elseif (isset($_GET['exchnage'])) {
     $exchnageType = $_GET['exchnage'];
     if ($exchnageType == '1') {

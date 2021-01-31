@@ -17,6 +17,14 @@ if (login()) {
         $ifsc = $_GET['ifsc'];
         $bank = $_GET['bank'];
         $total = $_GET['total'];
+        $option = $_GET['option'];
+        if ($option == 'wallet') {
+            $wallet = '0';
+            $emi = '1';
+        } else {
+            $wallet = '1';
+            $emi = '0';
+        }
         $transectionId = rand(10, 99);
         $transectionIdProtect = sha1($transectionId);
         $balanceToAdd = 0;
@@ -57,8 +65,8 @@ if (login()) {
         }
     }
     if ($balanceToAdd > 0) {
-        $keyId = 'rzp_test_zbXyweaueYC68q';
-        $secretKey = 'O7QLX7tCf3NcVtJCJo9i88Er';
+        $keyId = 'rzp_test_5vgRViRUnh5nEv';
+        $secretKey = 'ktbqY9KlYVEnkixP6yjKCFai';
         $api = new Api($keyId, $secretKey);
         $order = $api->order->create(array(
             'amount' => $razorpayBalance,
@@ -266,7 +274,16 @@ if (login()) {
                                     },
                                     "theme": {
                                         "color": "#40bf19"
+                                    },
+                                    "method": {
+                                        "netbanking": "0",
+                                        "card": "0",
+                                        "upi": "0",
+                                        "wallet": "<?php echo $wallet; ?>",
+                                        "emi": "<?php echo $emi; ?>",
+                                        "paylater": "0"
                                     }
+
                                 };
                                 var rzp1 = new Razorpay(options);
                                 rzp1.on('payment.failed', function(response) {
